@@ -13,11 +13,14 @@ The project includes the standard Gradle wrapper. From a terminal with JDK 17 or
 
 ## Play
 
+The game draws 10 rounds from 156 playable Traditional and Simplified character pairs.
+
 - Choose a 3×3, 4×4, or 5×5 grid.
 - Tap the single character in the requested script.
 - Correct answers earn 10 points. A hint highlights the answer and reduces that round to 5 points.
 - Each different wrong tile costs one of three hearts. Tapping a previously wrong tile cannot cost another heart.
 - After a correct answer, see the Traditional → Simplified pair, pinyin, and English meaning, then continue.
+- Tap **Listen** on the revealed pair and choose Mandarin or Cantonese. Install the corresponding offline voice in Android’s text-to-speech settings if needed. For characters with multiple readings, the voice engine may select a different reading from the one shown.
 - Complete ten rounds or play until the hearts run out. Best scores are saved separately for each difficulty.
 
 There is no timer, account, advertising, network permission, or external runtime service. The game works offline after installation. Current game state survives Activity recreation, including rotation; completed best scores persist between launches.
@@ -40,4 +43,4 @@ The Kotlin source compiled successfully using the Android Studio Kotlin compiler
 
 ## Documentation website
 
-Open [docs/index.html](docs/index.html), or serve this project root and visit /docs/. The documentation includes setup instructions, gameplay rules, a searchable character reference, and developer notes. See [docs/README.md](docs/README.md) for static hosting instructions.
+Open [doc/index.html](doc/index.html), or serve this project root and visit /doc/. The documentation includes setup instructions, gameplay rules, a searchable character reference, and developer notes. See [docs/README.md](docs/README.md) for static hosting instructions.

@@ -6,7 +6,10 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
-import android.view.View
+import android.os.Handler
+import android.os.Looper
+import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import android.widget.*
 import java.util.Locale
 import kotlin.random.Random
@@ -29,7 +32,132 @@ class MainActivity : Activity() {
         PairWord("體", "体", "tǐ", "body"), PairWord("頭", "头", "tóu", "head"),
         PairWord("貓", "猫", "māo", "cat"), PairWord("龍", "龙", "lóng", "dragon"),
         PairWord("葉", "叶", "yè", "leaf"), PairWord("樹", "树", "shù", "tree"),
-        PairWord("買", "买", "mǎi", "to buy"), PairWord("賣", "卖", "mài", "to sell")
+        PairWord("買", "买", "mǎi", "to buy"), PairWord("賣", "卖", "mài", "to sell"),
+        PairWord("鐘", "钟", "zhōng", "clock"),
+        PairWord("鏡", "镜", "jìng", "mirror"),
+        PairWord("燈", "灯", "dēng", "lamp"),
+        PairWord("傘", "伞", "sǎn", "umbrella"),
+        PairWord("紙", "纸", "zhǐ", "paper"),
+        PairWord("筆", "笔", "bǐ", "pen"),
+        PairWord("畫", "画", "huà", "painting"),
+        PairWord("頁", "页", "yè", "page"),
+        PairWord("線", "线", "xiàn", "thread"),
+        PairWord("網", "网", "wǎng", "net"),
+        PairWord("繩", "绳", "shéng", "rope"),
+        PairWord("籃", "篮", "lán", "basket"),
+        PairWord("盤", "盘", "pán", "plate"),
+        PairWord("鍋", "锅", "guō", "pot"),
+        PairWord("鑰", "钥", "yào", "key"),
+        PairWord("鎖", "锁", "suǒ", "lock"),
+        PairWord("鐵", "铁", "tiě", "iron"),
+        PairWord("銅", "铜", "tóng", "copper"),
+        PairWord("銀", "银", "yín", "silver"),
+        PairWord("錢", "钱", "qián", "money"),
+        PairWord("橋", "桥", "qiáo", "bridge"),
+        PairWord("樓", "楼", "lóu", "building"),
+        PairWord("園", "园", "yuán", "garden"),
+        PairWord("島", "岛", "dǎo", "island"),
+        PairWord("灣", "湾", "wān", "bay"),
+        PairWord("灘", "滩", "tān", "beach"),
+        PairWord("嶺", "岭", "lǐng", "mountain ridge"),
+        PairWord("霧", "雾", "wù", "fog"),
+        PairWord("塵", "尘", "chén", "dust"),
+        PairWord("煙", "烟", "yān", "smoke"),
+        PairWord("陽", "阳", "yáng", "sun"),
+        PairWord("陰", "阴", "yīn", "shade"),
+        PairWord("蟲", "虫", "chóng", "insect"),
+        PairWord("蝦", "虾", "xiā", "shrimp"),
+        PairWord("龜", "龟", "guī", "turtle"),
+        PairWord("鴨", "鸭", "yā", "duck"),
+        PairWord("鵝", "鹅", "é", "goose"),
+        PairWord("雞", "鸡", "jī", "chicken"),
+        PairWord("豬", "猪", "zhū", "pig"),
+        PairWord("獅", "狮", "shī", "lion"),
+        PairWord("獵", "猎", "liè", "to hunt"),
+        PairWord("獸", "兽", "shòu", "beast"),
+        PairWord("驢", "驴", "lǘ", "donkey"),
+        PairWord("駱", "骆", "luò", "camel (as in 駱駝)"),
+        PairWord("蘋", "苹", "píng", "apple (as in 蘋果)"),
+        PairWord("蘿", "萝", "luó", "radish (as in 蘿蔔)"),
+        PairWord("蔥", "葱", "cōng", "scallion"),
+        PairWord("麥", "麦", "mài", "wheat"),
+        PairWord("麵", "面", "miàn", "flour or noodles"),
+        PairWord("餅", "饼", "bǐng", "flatbread"),
+        PairWord("飯", "饭", "fàn", "cooked rice"),
+        PairWord("飽", "饱", "bǎo", "full after eating"),
+        PairWord("餓", "饿", "è", "hungry"),
+        PairWord("飲", "饮", "yǐn", "to drink"),
+        PairWord("湯", "汤", "tāng", "soup"),
+        PairWord("鹽", "盐", "yán", "salt"),
+        PairWord("藥", "药", "yào", "medicine"),
+        PairWord("醫", "医", "yī", "medicine or doctor"),
+        PairWord("膚", "肤", "fū", "skin"),
+        PairWord("齒", "齿", "chǐ", "tooth"),
+        PairWord("齡", "龄", "líng", "age"),
+        PairWord("髮", "发", "fà", "hair"),
+        PairWord("臉", "脸", "liǎn", "face"),
+        PairWord("腳", "脚", "jiǎo", "foot"),
+        PairWord("腦", "脑", "nǎo", "brain"),
+        PairWord("聲", "声", "shēng", "sound"),
+        PairWord("響", "响", "xiǎng", "to sound"),
+        PairWord("讀", "读", "dú", "to read"),
+        PairWord("寫", "写", "xiě", "to write"),
+        PairWord("問", "问", "wèn", "to ask"),
+        PairWord("認", "认", "rèn", "to recognize"),
+        PairWord("識", "识", "shí", "to know"),
+        PairWord("記", "记", "jì", "to remember"),
+        PairWord("講", "讲", "jiǎng", "to talk"),
+        PairWord("請", "请", "qǐng", "please"),
+        PairWord("謝", "谢", "xiè", "to thank"),
+        PairWord("試", "试", "shì", "to try"),
+        PairWord("課", "课", "kè", "lesson"),
+        PairWord("練", "练", "liàn", "to practice"),
+        PairWord("習", "习", "xí", "to study"),
+        PairWord("親", "亲", "qīn", "close or related"),
+        PairWord("遠", "远", "yuǎn", "far"),
+        PairWord("進", "进", "jìn", "to enter"),
+        PairWord("過", "过", "guò", "to pass"),
+        PairWord("運", "运", "yùn", "to transport"),
+        PairWord("轉", "转", "zhuǎn", "to turn"),
+        PairWord("選", "选", "xuǎn", "to choose"),
+        PairWord("達", "达", "dá", "to reach"),
+        PairWord("歸", "归", "guī", "to return"),
+        PairWord("離", "离", "lí", "to leave"),
+        PairWord("雙", "双", "shuāng", "pair"),
+        PairWord("單", "单", "dān", "single"),
+        PairWord("萬", "万", "wàn", "ten thousand"),
+        PairWord("億", "亿", "yì", "one hundred million"),
+        PairWord("幾", "几", "jǐ", "how many"),
+        PairWord("個", "个", "gè", "general measure word"),
+        PairWord("總", "总", "zǒng", "total"),
+        PairWord("點", "点", "diǎn", "dot or point"),
+        PairWord("紅", "红", "hóng", "red"),
+        PairWord("綠", "绿", "lǜ", "green"),
+        PairWord("藍", "蓝", "lán", "blue"),
+        PairWord("黃", "黄", "huáng", "yellow"),
+        PairWord("輕", "轻", "qīng", "light in weight"),
+        PairWord("難", "难", "nán", "difficult"),
+        PairWord("簡", "简", "jiǎn", "simple"),
+        PairWord("複", "复", "fù", "to repeat"),
+        PairWord("舊", "旧", "jiù", "old"),
+        PairWord("歲", "岁", "suì", "year of age"),
+        PairWord("夢", "梦", "mèng", "dream"),
+        PairWord("驚", "惊", "jīng", "startled"),
+        PairWord("憶", "忆", "yì", "to recall"),
+        PairWord("願", "愿", "yuàn", "wish"),
+        PairWord("慶", "庆", "qìng", "to celebrate"),
+        PairWord("歡", "欢", "huān", "joy"),
+        PairWord("戲", "戏", "xì", "play or drama"),
+        PairWord("觀", "观", "guān", "to observe"),
+        PairWord("現", "现", "xiàn", "to appear"),
+        PairWord("實", "实", "shí", "real"),
+        PairWord("廣", "广", "guǎng", "wide"),
+        PairWord("農", "农", "nóng", "agriculture"),
+        PairWord("業", "业", "yè", "occupation"),
+        PairWord("師", "师", "shī", "teacher"),
+        PairWord("團", "团", "tuán", "group"),
+        PairWord("隊", "队", "duì", "team"),
+        PairWord("號", "号", "hào", "number")
     ).filter { it.traditional != it.simplified }
     private val ink = Color.rgb(28, 49, 48)
     private val teal = Color.rgb(22, 125, 115)
@@ -45,10 +173,30 @@ class MainActivity : Activity() {
     private var playing = false
     private var mistakes = mutableSetOf<Int>()
     private lateinit var root: LinearLayout
+    private var speech: TextToSpeech? = null
+    private var speechStatus: Int? = null
+    private var activeUtterance: String? = null
+    private var utteranceNumber = 0
     private val prefs by lazy { getSharedPreferences("records", MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        speech = TextToSpeech(this) { status ->
+            Handler(Looper.getMainLooper()).post {
+                if (isDestroyed) return@post
+                speechStatus = status
+                if (status == TextToSpeech.SUCCESS) {
+                    speech?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+                        override fun onStart(utteranceId: String?) = Unit
+                        override fun onDone(utteranceId: String?) = Unit
+                        @Deprecated("Required by UtteranceProgressListener")
+                        override fun onError(utteranceId: String?) = reportSpeechError(utteranceId)
+                        override fun onError(utteranceId: String?, errorCode: Int) =
+                            reportSpeechError(utteranceId)
+                    })
+                }
+            }
+        }
         savedInstanceState?.let {
             side = it.getInt("side", 3); order = it.getIntArray("order") ?: intArrayOf()
             round = it.getInt("round"); score = it.getInt("score"); lives = it.getInt("lives", 3)
@@ -95,6 +243,7 @@ class MainActivity : Activity() {
         target = Random.nextInt(side * side); solved = false; hinted = false; mistakes.clear()
     }
     private fun render() {
+        stopSpeech()
         val scroll = ScrollView(this).apply { setBackgroundColor(paper); isFillViewport = true }
         root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER_HORIZONTAL
@@ -166,7 +315,7 @@ class MainActivity : Activity() {
         }
         if (solved) {
             addText("You found it!  +${if (hinted) 5 else 10}", 20f, teal)
-            addText("${word.traditional}  →  ${word.simplified}", 32f)
+            pronunciationButton(word)
             addText("Traditional  →  Simplified\n${word.pinyin} · ${word.meaning}")
             button(if (round == 9) "See results" else "Next character  →") { round++; newBoard(); render() }
         } else {
@@ -181,6 +330,81 @@ class MainActivity : Activity() {
                 .setPositiveButton("Leave") { _, _ -> playing = false; render() }.show()
         }
     }
+    private fun pronunciationButton(word: PairWord) {
+        button("${word.traditional}  →  ${word.simplified}   ·   Listen") {
+            android.app.AlertDialog.Builder(this)
+                .setTitle("Hear ${word.traditional} / ${word.simplified}")
+                .setItems(arrayOf("Mandarin · 普通話", "Cantonese · 廣東話")) { _, option ->
+                    pronounce(word, cantonese = option == 1)
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
+    }
+
+    private fun pronounce(word: PairWord, cantonese: Boolean) {
+        val engine = speech
+        if (engine == null || speechStatus != TextToSpeech.SUCCESS) {
+            speechMessage(if (speechStatus == null) "Speech is starting. Try again in a moment."
+                else "Text-to-speech is unavailable. Check your Android text-to-speech settings.")
+            return
+        }
+        val voice = engine.voices.orEmpty().filter { candidate ->
+            val locale = candidate.locale
+            val isCantonese = locale.language == "yue" ||
+                (locale.language == "zh" && locale.country in setOf("HK", "MO"))
+            val isMandarin = locale.language == "cmn" ||
+                (locale.language == "zh" && !isCantonese)
+            !candidate.isNetworkConnectionRequired &&
+                TextToSpeech.Engine.KEY_FEATURE_NOT_INSTALLED !in candidate.features.orEmpty() &&
+                (if (cantonese) isCantonese else isMandarin)
+        }.maxWithOrNull(compareBy({ it.quality }, { -it.latency }))
+        val language = if (cantonese) "Cantonese" else "Mandarin"
+        if (voice == null || engine.setVoice(voice) != TextToSpeech.SUCCESS) {
+            speechMessage("Install a $language voice in Android text-to-speech settings.")
+            return
+        }
+        val locale = voice.locale
+        val character = if (cantonese || locale.script == "Hant" || locale.country == "TW") {
+            word.traditional
+        } else {
+            word.simplified
+        }
+        val utteranceId = "character-${++utteranceNumber}"
+        activeUtterance = utteranceId
+        if (engine.speak(character, TextToSpeech.QUEUE_FLUSH, null, utteranceId) != TextToSpeech.SUCCESS) {
+            reportSpeechError(utteranceId)
+        }
+    }
+
+    private fun reportSpeechError(utteranceId: String?) {
+        runOnUiThread {
+            if (!isDestroyed && utteranceId != null && utteranceId == activeUtterance) {
+                speechMessage("Could not play the pronunciation. Check your text-to-speech voice.")
+            }
+        }
+    }
+
+    private fun speechMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun stopSpeech() {
+        activeUtterance = null
+        speech?.stop()
+    }
+
+    override fun onStop() {
+        stopSpeech()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        speech?.shutdown()
+        speech = null
+        super.onDestroy()
+    }
+
     private fun results() {
         val best = maxOf(score, prefs.getInt("best$side", 0))
         prefs.edit().putInt("best$side", best).apply()
@@ -190,7 +414,9 @@ class MainActivity : Activity() {
         addText("${round + if (solved && round < 10) 1 else 0} / 10 pairs found\nBest at this difficulty: $best")
         if (lives <= 0 && round < order.size) {
             val word = words[order[round]]
-            addText("The last pair was ${word.traditional} → ${word.simplified}\n${word.pinyin} · ${word.meaning}")
+            addText("The last pair was")
+            pronunciationButton(word)
+            addText("${word.pinyin} · ${word.meaning}")
         }
         button("Play again") { start(side) }
         button("Choose difficulty") { playing = false; render() }

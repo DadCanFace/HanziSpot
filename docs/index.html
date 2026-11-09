@@ -4,13 +4,13 @@
 <header><a class="brand" href="#overview"><span class="mark" lang="zh">漢</span> Hanzi Spot <span class="tag">DOCS</span></a><a class="github" href="https://github.com/DadCanFace/HanziSpot">View on GitHub ↗</a></header>
 <div class="layout"><aside><p class="nav-label">THE HANDBOOK</p><nav aria-label="Documentation"><a href="#overview">Overview</a><a href="#quickstart">Build & run</a><a href="#gameplay">How to play</a><a href="#characters">Character reference</a><a href="#development">Development</a><a href="#troubleshooting">Troubleshooting</a><a href="#privacy">Data & privacy</a></nav><div class="aside-note"><span lang="zh">繁體 / 简体</span><br>Two writing systems.<br>One curious eye.</div></aside>
 <main id="content"><section id="overview" class="hero"><p class="eyebrow">NATIVE ANDROID · KOTLIN</p><h1>A small difference.<br><em>A sharper eye.</em></h1><p class="lede">The handbook for Hanzi Spot. Learn to spot Traditional and Simplified Chinese characters, then explore how the app works.</p><div class="actions"><a class="primary" href="#quickstart">Build your first game →</a><a href="#gameplay">Learn the rules ↓</a></div><div class="hero-pair" aria-label="Traditional xue to Simplified xue"><div><span lang="zh-Hant">學</span><small>TRADITIONAL</small></div><b>→</b><div><span lang="zh-Hans">学</span><small>SIMPLIFIED</small></div><p>xué <span> / </span> to learn</p></div></section>
-<div class="facts"><div><strong>31</strong><span>character pairs</span></div><div><strong>10</strong><span>rounds per game</span></div><div><strong>3</strong><span>difficulty levels</span></div><div><strong>100</strong><span>maximum points</span></div></div>
+<div class="facts"><div><strong>156</strong><span>character pairs</span></div><div><strong>10</strong><span>rounds per game</span></div><div><strong>3</strong><span>difficulty levels</span></div><div><strong>100</strong><span>maximum points</span></div></div>
 <section id="quickstart"><p class="eyebrow">01 / GET STARTED</p><h2>From source to your phone.</h2><p>You need Android Studio, JDK 17 or 21, and Android SDK Platform 35. The app runs on Android 6.0 (API 23) and newer.</p><ol class="steps"><li><h3>Open the project</h3><p>Choose <strong>Open</strong> in Android Studio and select <code>HanziSpot</code>, the folder containing <code>settings.gradle.kts</code>.</p></li><li><h3>Check the Gradle JDK</h3><p>Open Settings → Build, Execution, Deployment → Build Tools → Gradle. Select JDK 17 or 21 for the documented Gradle 8.11.1 baseline.</p></li><li><h3>Sync, then run</h3><p>Install SDK Platform 35 when prompted. Let Gradle sync, choose an emulator or connected phone, and click Run. The first build needs internet for dependencies.</p></li></ol>
 <div class="callout"><strong>Build configuration note</strong><p>The Desktop copy currently specifies Gradle <strong>9.0</strong>, AGP <strong>8.9.1</strong>, and Kotlin <strong>2.2.21</strong>. The original project used Gradle <strong>8.11.1</strong>. This documentation change preserves the current files. If sync fails, restore the original wrapper version and use JDK 17 or 21, or upgrade the build stack together.</p></div>
 <h3>Build from a terminal</h3><p>Run from the project root with your Android SDK configured.</p><div class="code-head"><span>Windows · PowerShell</span><button class="copy" data-copy=".\gradlew.bat :app:assembleDebug">Copy</button></div><pre><code>.\gradlew.bat :app:assembleDebug</code></pre><div class="code-head"><span>macOS / Linux</span><button class="copy" data-copy="sh gradlew :app:assembleDebug">Copy</button></div><pre><code>sh gradlew :app:assembleDebug</code></pre><p>Find the debug APK at <code>app/build/outputs/apk/debug/app-debug.apk</code>.</p></section>
 <section id="gameplay"><p class="eyebrow">02 / THE GAME</p><h2>Find the one that changes.</h2><p>Each grid repeats one character, with a single tile written in the other script. Odd-numbered rounds ask for Traditional; even-numbered rounds ask for Simplified.</p><div class="play-example"><div><h3>Try a practice grid</h3><p>Find the Traditional character among these Simplified characters. This is a website example; it does not affect your Android scores.</p><p id="demo-status" role="status" aria-live="polite">Look closely at the strokes.</p><button id="demo-reset" class="text-button">Reset example ↻</button></div><div id="demo-grid" aria-label="Practice character grid"></div></div>
-<div class="table-wrap"><table><caption>Choose your grid size</caption><thead><tr><th>Difficulty</th><th>Grid</th><th>Tiles</th></tr></thead><tbody><tr><td>Easy</td><td>3 × 3</td><td>9</td></tr><tr><td>Medium</td><td>4 × 4</td><td>16</td></tr><tr><td>Hard</td><td>5 × 5</td><td>25</td></tr></tbody></table></div><ul><li><strong>Correct answer:</strong> earn 10 points and see the pair, pinyin, and meaning.</li><li><strong>Hint:</strong> highlights the correct tile in gold; that round earns 5 points.</li><li><strong>Wrong answer:</strong> lose one heart. A previously wrong tile becomes disabled.</li><li><strong>Finish:</strong> complete 10 rounds or lose all 3 hearts. There is no time limit.</li><li><strong>Records:</strong> best completed-game scores are saved separately for each difficulty.</li></ul><p>Leaving through “Back to menu” asks for confirmation and discards the current game.</p></section>
-<section id="characters"><p class="eyebrow">03 / REFERENCE</p><h2>Meet the character pairs.</h2><p>All 31 playable pairs from the app. Search by either script, pinyin, or English meaning. Readings and meanings are representative; context can introduce other readings.</p><label class="search-label" for="search">Search characters</label><input type="search" id="search" placeholder="Try 學, xué, or book" autocomplete="off"><p class="result-count" id="result-count" role="status">31 pairs</p><div class="table-wrap"><table id="pair-table"><caption class="sr-only">Playable Traditional and Simplified character pairs</caption><thead><tr><th>Traditional 繁體</th><th>Simplified 简体</th><th>Pinyin</th><th>Meaning</th></tr></thead><tbody><tr><td lang="zh-Hant">學</td><td lang="zh-Hans">学</td><td>xué</td><td>to learn</td></tr>
+<div class="table-wrap"><table><caption>Choose your grid size</caption><thead><tr><th>Difficulty</th><th>Grid</th><th>Tiles</th></tr></thead><tbody><tr><td>Easy</td><td>3 × 3</td><td>9</td></tr><tr><td>Medium</td><td>4 × 4</td><td>16</td></tr><tr><td>Hard</td><td>5 × 5</td><td>25</td></tr></tbody></table></div><ul><li><strong>Correct answer:</strong> earn 10 points and see the pair, pinyin, and meaning.</li><li><strong>Hint:</strong> highlights the correct tile in gold; that round earns 5 points.</li><li><strong>Wrong answer:</strong> lose one heart. A previously wrong tile becomes disabled.</li><li><strong>Finish:</strong> complete 10 rounds or lose all 3 hearts. There is no time limit.</li><li><strong>Records:</strong> best completed-game scores are saved separately for each difficulty.</li></ul><p>Tap the character pair’s <strong>Listen</strong> button after a correct answer to choose Mandarin or Cantonese. Playback uses an installed offline voice in Android’s text-to-speech settings. The engine may choose a different reading for characters with multiple pronunciations.</p><p>Leaving through “Back to menu” asks for confirmation and discards the current game.</p></section>
+<section id="characters"><p class="eyebrow">03 / REFERENCE</p><h2>Meet the character pairs.</h2><p>All 156 playable pairs from the app. Search by either script, pinyin, or English meaning. Readings and meanings are representative; context can introduce other readings.</p><label class="search-label" for="search">Search characters</label><input type="search" id="search" placeholder="Try 學, xué, or book" autocomplete="off"><p class="result-count" id="result-count" role="status">156 pairs</p><div class="table-wrap"><table id="pair-table"><caption class="sr-only">Playable Traditional and Simplified character pairs</caption><thead><tr><th>Traditional 繁體</th><th>Simplified 简体</th><th>Pinyin</th><th>Meaning</th></tr></thead><tbody><tr><td lang="zh-Hant">學</td><td lang="zh-Hans">学</td><td>xué</td><td>to learn</td></tr>
 <tr><td lang="zh-Hant">書</td><td lang="zh-Hans">书</td><td>shū</td><td>book</td></tr>
 <tr><td lang="zh-Hant">國</td><td lang="zh-Hans">国</td><td>guó</td><td>country</td></tr>
 <tr><td lang="zh-Hant">門</td><td lang="zh-Hans">门</td><td>mén</td><td>door</td></tr>
@@ -40,7 +40,132 @@
 <tr><td lang="zh-Hant">葉</td><td lang="zh-Hans">叶</td><td>yè</td><td>leaf</td></tr>
 <tr><td lang="zh-Hant">樹</td><td lang="zh-Hans">树</td><td>shù</td><td>tree</td></tr>
 <tr><td lang="zh-Hant">買</td><td lang="zh-Hans">买</td><td>mǎi</td><td>to buy</td></tr>
-<tr><td lang="zh-Hant">賣</td><td lang="zh-Hans">卖</td><td>mài</td><td>to sell</td></tr></tbody></table></div><p id="no-results" hidden>No matching pairs. Try another character or meaning.</p><p class="small">Characters with identical Traditional and Simplified forms are filtered out by the app. This is a visual recognition game, not a general text conversion tool.</p></section>
+<tr><td lang="zh-Hant">賣</td><td lang="zh-Hans">卖</td><td>mài</td><td>to sell</td></tr>
+<tr><td lang="zh-Hant">鐘</td><td lang="zh-Hans">钟</td><td>zhōng</td><td>clock</td></tr>
+<tr><td lang="zh-Hant">鏡</td><td lang="zh-Hans">镜</td><td>jìng</td><td>mirror</td></tr>
+<tr><td lang="zh-Hant">燈</td><td lang="zh-Hans">灯</td><td>dēng</td><td>lamp</td></tr>
+<tr><td lang="zh-Hant">傘</td><td lang="zh-Hans">伞</td><td>sǎn</td><td>umbrella</td></tr>
+<tr><td lang="zh-Hant">紙</td><td lang="zh-Hans">纸</td><td>zhǐ</td><td>paper</td></tr>
+<tr><td lang="zh-Hant">筆</td><td lang="zh-Hans">笔</td><td>bǐ</td><td>pen</td></tr>
+<tr><td lang="zh-Hant">畫</td><td lang="zh-Hans">画</td><td>huà</td><td>painting</td></tr>
+<tr><td lang="zh-Hant">頁</td><td lang="zh-Hans">页</td><td>yè</td><td>page</td></tr>
+<tr><td lang="zh-Hant">線</td><td lang="zh-Hans">线</td><td>xiàn</td><td>thread</td></tr>
+<tr><td lang="zh-Hant">網</td><td lang="zh-Hans">网</td><td>wǎng</td><td>net</td></tr>
+<tr><td lang="zh-Hant">繩</td><td lang="zh-Hans">绳</td><td>shéng</td><td>rope</td></tr>
+<tr><td lang="zh-Hant">籃</td><td lang="zh-Hans">篮</td><td>lán</td><td>basket</td></tr>
+<tr><td lang="zh-Hant">盤</td><td lang="zh-Hans">盘</td><td>pán</td><td>plate</td></tr>
+<tr><td lang="zh-Hant">鍋</td><td lang="zh-Hans">锅</td><td>guō</td><td>pot</td></tr>
+<tr><td lang="zh-Hant">鑰</td><td lang="zh-Hans">钥</td><td>yào</td><td>key</td></tr>
+<tr><td lang="zh-Hant">鎖</td><td lang="zh-Hans">锁</td><td>suǒ</td><td>lock</td></tr>
+<tr><td lang="zh-Hant">鐵</td><td lang="zh-Hans">铁</td><td>tiě</td><td>iron</td></tr>
+<tr><td lang="zh-Hant">銅</td><td lang="zh-Hans">铜</td><td>tóng</td><td>copper</td></tr>
+<tr><td lang="zh-Hant">銀</td><td lang="zh-Hans">银</td><td>yín</td><td>silver</td></tr>
+<tr><td lang="zh-Hant">錢</td><td lang="zh-Hans">钱</td><td>qián</td><td>money</td></tr>
+<tr><td lang="zh-Hant">橋</td><td lang="zh-Hans">桥</td><td>qiáo</td><td>bridge</td></tr>
+<tr><td lang="zh-Hant">樓</td><td lang="zh-Hans">楼</td><td>lóu</td><td>building</td></tr>
+<tr><td lang="zh-Hant">園</td><td lang="zh-Hans">园</td><td>yuán</td><td>garden</td></tr>
+<tr><td lang="zh-Hant">島</td><td lang="zh-Hans">岛</td><td>dǎo</td><td>island</td></tr>
+<tr><td lang="zh-Hant">灣</td><td lang="zh-Hans">湾</td><td>wān</td><td>bay</td></tr>
+<tr><td lang="zh-Hant">灘</td><td lang="zh-Hans">滩</td><td>tān</td><td>beach</td></tr>
+<tr><td lang="zh-Hant">嶺</td><td lang="zh-Hans">岭</td><td>lǐng</td><td>mountain ridge</td></tr>
+<tr><td lang="zh-Hant">霧</td><td lang="zh-Hans">雾</td><td>wù</td><td>fog</td></tr>
+<tr><td lang="zh-Hant">塵</td><td lang="zh-Hans">尘</td><td>chén</td><td>dust</td></tr>
+<tr><td lang="zh-Hant">煙</td><td lang="zh-Hans">烟</td><td>yān</td><td>smoke</td></tr>
+<tr><td lang="zh-Hant">陽</td><td lang="zh-Hans">阳</td><td>yáng</td><td>sun</td></tr>
+<tr><td lang="zh-Hant">陰</td><td lang="zh-Hans">阴</td><td>yīn</td><td>shade</td></tr>
+<tr><td lang="zh-Hant">蟲</td><td lang="zh-Hans">虫</td><td>chóng</td><td>insect</td></tr>
+<tr><td lang="zh-Hant">蝦</td><td lang="zh-Hans">虾</td><td>xiā</td><td>shrimp</td></tr>
+<tr><td lang="zh-Hant">龜</td><td lang="zh-Hans">龟</td><td>guī</td><td>turtle</td></tr>
+<tr><td lang="zh-Hant">鴨</td><td lang="zh-Hans">鸭</td><td>yā</td><td>duck</td></tr>
+<tr><td lang="zh-Hant">鵝</td><td lang="zh-Hans">鹅</td><td>é</td><td>goose</td></tr>
+<tr><td lang="zh-Hant">雞</td><td lang="zh-Hans">鸡</td><td>jī</td><td>chicken</td></tr>
+<tr><td lang="zh-Hant">豬</td><td lang="zh-Hans">猪</td><td>zhū</td><td>pig</td></tr>
+<tr><td lang="zh-Hant">獅</td><td lang="zh-Hans">狮</td><td>shī</td><td>lion</td></tr>
+<tr><td lang="zh-Hant">獵</td><td lang="zh-Hans">猎</td><td>liè</td><td>to hunt</td></tr>
+<tr><td lang="zh-Hant">獸</td><td lang="zh-Hans">兽</td><td>shòu</td><td>beast</td></tr>
+<tr><td lang="zh-Hant">驢</td><td lang="zh-Hans">驴</td><td>lǘ</td><td>donkey</td></tr>
+<tr><td lang="zh-Hant">駱</td><td lang="zh-Hans">骆</td><td>luò</td><td>camel (as in 駱駝)</td></tr>
+<tr><td lang="zh-Hant">蘋</td><td lang="zh-Hans">苹</td><td>píng</td><td>apple (as in 蘋果)</td></tr>
+<tr><td lang="zh-Hant">蘿</td><td lang="zh-Hans">萝</td><td>luó</td><td>radish (as in 蘿蔔)</td></tr>
+<tr><td lang="zh-Hant">蔥</td><td lang="zh-Hans">葱</td><td>cōng</td><td>scallion</td></tr>
+<tr><td lang="zh-Hant">麥</td><td lang="zh-Hans">麦</td><td>mài</td><td>wheat</td></tr>
+<tr><td lang="zh-Hant">麵</td><td lang="zh-Hans">面</td><td>miàn</td><td>flour or noodles</td></tr>
+<tr><td lang="zh-Hant">餅</td><td lang="zh-Hans">饼</td><td>bǐng</td><td>flatbread</td></tr>
+<tr><td lang="zh-Hant">飯</td><td lang="zh-Hans">饭</td><td>fàn</td><td>cooked rice</td></tr>
+<tr><td lang="zh-Hant">飽</td><td lang="zh-Hans">饱</td><td>bǎo</td><td>full after eating</td></tr>
+<tr><td lang="zh-Hant">餓</td><td lang="zh-Hans">饿</td><td>è</td><td>hungry</td></tr>
+<tr><td lang="zh-Hant">飲</td><td lang="zh-Hans">饮</td><td>yǐn</td><td>to drink</td></tr>
+<tr><td lang="zh-Hant">湯</td><td lang="zh-Hans">汤</td><td>tāng</td><td>soup</td></tr>
+<tr><td lang="zh-Hant">鹽</td><td lang="zh-Hans">盐</td><td>yán</td><td>salt</td></tr>
+<tr><td lang="zh-Hant">藥</td><td lang="zh-Hans">药</td><td>yào</td><td>medicine</td></tr>
+<tr><td lang="zh-Hant">醫</td><td lang="zh-Hans">医</td><td>yī</td><td>medicine or doctor</td></tr>
+<tr><td lang="zh-Hant">膚</td><td lang="zh-Hans">肤</td><td>fū</td><td>skin</td></tr>
+<tr><td lang="zh-Hant">齒</td><td lang="zh-Hans">齿</td><td>chǐ</td><td>tooth</td></tr>
+<tr><td lang="zh-Hant">齡</td><td lang="zh-Hans">龄</td><td>líng</td><td>age</td></tr>
+<tr><td lang="zh-Hant">髮</td><td lang="zh-Hans">发</td><td>fà</td><td>hair</td></tr>
+<tr><td lang="zh-Hant">臉</td><td lang="zh-Hans">脸</td><td>liǎn</td><td>face</td></tr>
+<tr><td lang="zh-Hant">腳</td><td lang="zh-Hans">脚</td><td>jiǎo</td><td>foot</td></tr>
+<tr><td lang="zh-Hant">腦</td><td lang="zh-Hans">脑</td><td>nǎo</td><td>brain</td></tr>
+<tr><td lang="zh-Hant">聲</td><td lang="zh-Hans">声</td><td>shēng</td><td>sound</td></tr>
+<tr><td lang="zh-Hant">響</td><td lang="zh-Hans">响</td><td>xiǎng</td><td>to sound</td></tr>
+<tr><td lang="zh-Hant">讀</td><td lang="zh-Hans">读</td><td>dú</td><td>to read</td></tr>
+<tr><td lang="zh-Hant">寫</td><td lang="zh-Hans">写</td><td>xiě</td><td>to write</td></tr>
+<tr><td lang="zh-Hant">問</td><td lang="zh-Hans">问</td><td>wèn</td><td>to ask</td></tr>
+<tr><td lang="zh-Hant">認</td><td lang="zh-Hans">认</td><td>rèn</td><td>to recognize</td></tr>
+<tr><td lang="zh-Hant">識</td><td lang="zh-Hans">识</td><td>shí</td><td>to know</td></tr>
+<tr><td lang="zh-Hant">記</td><td lang="zh-Hans">记</td><td>jì</td><td>to remember</td></tr>
+<tr><td lang="zh-Hant">講</td><td lang="zh-Hans">讲</td><td>jiǎng</td><td>to talk</td></tr>
+<tr><td lang="zh-Hant">請</td><td lang="zh-Hans">请</td><td>qǐng</td><td>please</td></tr>
+<tr><td lang="zh-Hant">謝</td><td lang="zh-Hans">谢</td><td>xiè</td><td>to thank</td></tr>
+<tr><td lang="zh-Hant">試</td><td lang="zh-Hans">试</td><td>shì</td><td>to try</td></tr>
+<tr><td lang="zh-Hant">課</td><td lang="zh-Hans">课</td><td>kè</td><td>lesson</td></tr>
+<tr><td lang="zh-Hant">練</td><td lang="zh-Hans">练</td><td>liàn</td><td>to practice</td></tr>
+<tr><td lang="zh-Hant">習</td><td lang="zh-Hans">习</td><td>xí</td><td>to study</td></tr>
+<tr><td lang="zh-Hant">親</td><td lang="zh-Hans">亲</td><td>qīn</td><td>close or related</td></tr>
+<tr><td lang="zh-Hant">遠</td><td lang="zh-Hans">远</td><td>yuǎn</td><td>far</td></tr>
+<tr><td lang="zh-Hant">進</td><td lang="zh-Hans">进</td><td>jìn</td><td>to enter</td></tr>
+<tr><td lang="zh-Hant">過</td><td lang="zh-Hans">过</td><td>guò</td><td>to pass</td></tr>
+<tr><td lang="zh-Hant">運</td><td lang="zh-Hans">运</td><td>yùn</td><td>to transport</td></tr>
+<tr><td lang="zh-Hant">轉</td><td lang="zh-Hans">转</td><td>zhuǎn</td><td>to turn</td></tr>
+<tr><td lang="zh-Hant">選</td><td lang="zh-Hans">选</td><td>xuǎn</td><td>to choose</td></tr>
+<tr><td lang="zh-Hant">達</td><td lang="zh-Hans">达</td><td>dá</td><td>to reach</td></tr>
+<tr><td lang="zh-Hant">歸</td><td lang="zh-Hans">归</td><td>guī</td><td>to return</td></tr>
+<tr><td lang="zh-Hant">離</td><td lang="zh-Hans">离</td><td>lí</td><td>to leave</td></tr>
+<tr><td lang="zh-Hant">雙</td><td lang="zh-Hans">双</td><td>shuāng</td><td>pair</td></tr>
+<tr><td lang="zh-Hant">單</td><td lang="zh-Hans">单</td><td>dān</td><td>single</td></tr>
+<tr><td lang="zh-Hant">萬</td><td lang="zh-Hans">万</td><td>wàn</td><td>ten thousand</td></tr>
+<tr><td lang="zh-Hant">億</td><td lang="zh-Hans">亿</td><td>yì</td><td>one hundred million</td></tr>
+<tr><td lang="zh-Hant">幾</td><td lang="zh-Hans">几</td><td>jǐ</td><td>how many</td></tr>
+<tr><td lang="zh-Hant">個</td><td lang="zh-Hans">个</td><td>gè</td><td>general measure word</td></tr>
+<tr><td lang="zh-Hant">總</td><td lang="zh-Hans">总</td><td>zǒng</td><td>total</td></tr>
+<tr><td lang="zh-Hant">點</td><td lang="zh-Hans">点</td><td>diǎn</td><td>dot or point</td></tr>
+<tr><td lang="zh-Hant">紅</td><td lang="zh-Hans">红</td><td>hóng</td><td>red</td></tr>
+<tr><td lang="zh-Hant">綠</td><td lang="zh-Hans">绿</td><td>lǜ</td><td>green</td></tr>
+<tr><td lang="zh-Hant">藍</td><td lang="zh-Hans">蓝</td><td>lán</td><td>blue</td></tr>
+<tr><td lang="zh-Hant">黃</td><td lang="zh-Hans">黄</td><td>huáng</td><td>yellow</td></tr>
+<tr><td lang="zh-Hant">輕</td><td lang="zh-Hans">轻</td><td>qīng</td><td>light in weight</td></tr>
+<tr><td lang="zh-Hant">難</td><td lang="zh-Hans">难</td><td>nán</td><td>difficult</td></tr>
+<tr><td lang="zh-Hant">簡</td><td lang="zh-Hans">简</td><td>jiǎn</td><td>simple</td></tr>
+<tr><td lang="zh-Hant">複</td><td lang="zh-Hans">复</td><td>fù</td><td>to repeat</td></tr>
+<tr><td lang="zh-Hant">舊</td><td lang="zh-Hans">旧</td><td>jiù</td><td>old</td></tr>
+<tr><td lang="zh-Hant">歲</td><td lang="zh-Hans">岁</td><td>suì</td><td>year of age</td></tr>
+<tr><td lang="zh-Hant">夢</td><td lang="zh-Hans">梦</td><td>mèng</td><td>dream</td></tr>
+<tr><td lang="zh-Hant">驚</td><td lang="zh-Hans">惊</td><td>jīng</td><td>startled</td></tr>
+<tr><td lang="zh-Hant">憶</td><td lang="zh-Hans">忆</td><td>yì</td><td>to recall</td></tr>
+<tr><td lang="zh-Hant">願</td><td lang="zh-Hans">愿</td><td>yuàn</td><td>wish</td></tr>
+<tr><td lang="zh-Hant">慶</td><td lang="zh-Hans">庆</td><td>qìng</td><td>to celebrate</td></tr>
+<tr><td lang="zh-Hant">歡</td><td lang="zh-Hans">欢</td><td>huān</td><td>joy</td></tr>
+<tr><td lang="zh-Hant">戲</td><td lang="zh-Hans">戏</td><td>xì</td><td>play or drama</td></tr>
+<tr><td lang="zh-Hant">觀</td><td lang="zh-Hans">观</td><td>guān</td><td>to observe</td></tr>
+<tr><td lang="zh-Hant">現</td><td lang="zh-Hans">现</td><td>xiàn</td><td>to appear</td></tr>
+<tr><td lang="zh-Hant">實</td><td lang="zh-Hans">实</td><td>shí</td><td>real</td></tr>
+<tr><td lang="zh-Hant">廣</td><td lang="zh-Hans">广</td><td>guǎng</td><td>wide</td></tr>
+<tr><td lang="zh-Hant">農</td><td lang="zh-Hans">农</td><td>nóng</td><td>agriculture</td></tr>
+<tr><td lang="zh-Hant">業</td><td lang="zh-Hans">业</td><td>yè</td><td>occupation</td></tr>
+<tr><td lang="zh-Hant">師</td><td lang="zh-Hans">师</td><td>shī</td><td>teacher</td></tr>
+<tr><td lang="zh-Hant">團</td><td lang="zh-Hans">团</td><td>tuán</td><td>group</td></tr>
+<tr><td lang="zh-Hant">隊</td><td lang="zh-Hans">队</td><td>duì</td><td>team</td></tr>
+<tr><td lang="zh-Hant">號</td><td lang="zh-Hans">号</td><td>hào</td><td>number</td></tr></tbody></table></div><p id="no-results" hidden>No matching pairs. Try another character or meaning.</p><p class="small">Characters with identical Traditional and Simplified forms are filtered out by the app. This is a visual recognition game, not a general text conversion tool.</p></section>
 <section id="development"><p class="eyebrow">04 / UNDER THE HOOD</p><h2>Small, native, easy to explore.</h2><p>The app uses Kotlin and Android platform Views. One Activity creates the menu, game board, and results screens programmatically.</p><div class="table-wrap"><table><caption>Source map</caption><thead><tr><th>File</th><th>Responsibility</th></tr></thead><tbody><tr><td><code>MainActivity.kt</code></td><td>Dataset, game state, scoring, grids, navigation, and screen rendering</td></tr><tr><td><code>res/values/styles.xml</code></td><td>App theme and system bar colors</td></tr><tr><td><code>AndroidManifest.xml</code></td><td>Application and launcher Activity configuration</td></tr><tr><td><code>app/build.gradle.kts</code></td><td>SDK levels, application identity, and JVM target</td></tr></tbody></table></div><p>The Activity source lives at <code>app/src/main/java/com/hanzispot/game/MainActivity.kt</code>.</p><h3>Game flow</h3><div class="flow"><span>Choose difficulty</span><b>→</b><span>Spot a character</span><b>→</b><span>Learn the pair</span><b>→</b><span>Results</span></div><p><code>start()</code> selects 10 distinct random pairs. <code>newBoard()</code> randomizes the target tile. <code>board()</code> handles answers; <code>results()</code> saves the best score.</p><h3>Add a character pair</h3><p>Add a <code>PairWord</code> entry to the list in <code>MainActivity.kt</code>. Use single characters with different forms and a representative reading and meaning.</p><pre><code>PairWord("學", "学", "xué", "to learn")</code></pre><p>Regenerate or update the reference table here when changing the dataset.</p><h3>State and persistence</h3><p><code>onSaveInstanceState()</code> saves the round, order, score, hearts, target, hint, and mistakes for Activity recreation. Best scores use local <code>SharedPreferences</code> named <code>records</code>, with keys <code>best3</code>, <code>best4</code>, and <code>best5</code>. A new cold launch starts at the menu.</p><h3>Manual checks</h3><ul><li>Play every difficulty and verify exactly one different tile per grid.</li><li>Check alternating scripts, 10-point answers, and 5-point hinted answers.</li><li>Lose three hearts; complete ten rounds; replay and change difficulty.</li><li>Rotate before and after answering, then check state restoration.</li><li>Reopen the app and check high scores; test small screens and landscape scrolling.</li></ul><div class="callout neutral"><strong>Verification record</strong><p>The original Kotlin source compiled against installed Android API 37 stubs, and XML and dataset checks passed. The original full build failed under Java 25. No device or emulator run was recorded. These are historical checks, not verification of the current Gradle 9.0 configuration.</p></div></section>
 <section id="troubleshooting"><p class="eyebrow">05 / HELP</p><h2>Get unstuck.</h2><details><summary>Gradle sync fails or reports Java 25</summary><p>Check your Gradle JDK, not only the IDE runtime. For the original Gradle 8.11.1 configuration, choose JDK 17 or 21. The current Desktop wrapper is Gradle 9.0; see the configuration note above before changing versions.</p></details><details><summary>SDK Platform 35 is missing</summary><p>Open Android Studio’s SDK Manager and install Android SDK Platform 35. Ensure <code>local.properties</code> points to your local SDK, or set <code>ANDROID_HOME</code>. Do not commit machine-specific SDK paths.</p></details><details><summary>No device is available</summary><p>Create an Android Virtual Device in Device Manager, or connect a phone with USB debugging enabled and approve its debugging prompt. Use API 23 or newer.</p></details><details><summary>The website does not load at /docs</summary><p>This folder is a static site. Serve the project root to visit <code>/docs/</code>, or open <code>docs/index.html</code> directly. For GitHub Pages, select a branch and the <code>/docs</code> folder as the publishing source in the repository’s Pages settings. Pushing files alone does not enable Pages.</p></details></section>
 <section id="privacy"><p class="eyebrow">06 / ON YOUR DEVICE</p><h2>Play offline. Keep scores local.</h2><p>The current app manifest requests no network permission. Gameplay needs no account, advertising service, or remote backend. Best scores stay in the app’s local preferences.</p><p>Android system backup may include application data because backup is enabled in the manifest. Clearing app data resets local preferences; system restore behavior depends on the device’s backup settings.</p><p class="small">This documentation uses no external fonts, trackers, or JavaScript dependencies. The practice grid is temporary and does not save results.</p></section>
