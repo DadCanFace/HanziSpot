@@ -3,14 +3,14 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 android {
-    namespace = "com.hanzispot.game"
+    namespace = "com.hkaiSolveAcademy.vibeCoding.DadCanFace"
     compileSdk = 35
     defaultConfig {
-        applicationId = "com.hanzispot.game"
+        applicationId = "com.hkaiSolveAcademy.vibeCoding.DadCanFace"
         minSdk = 23
         targetSdk = 35
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 3
+        versionName = "1.2"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

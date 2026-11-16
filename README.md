@@ -27,7 +27,7 @@ There is no timer, account, advertising, network permission, or external runtime
 
 ## Project
 
-- `app/src/main/java/com/hanzispot/game/MainActivity.kt`: screens, character dataset, game rules, and saved state.
+- `app/src/main/java/com/hkaiSolveAcademy/vibeCoding/DadCanFace/MainActivity.kt`: screens, character dataset, game rules, and saved state.
 - `app/src/main/res/values/styles.xml`: application theme.
 - Android Gradle Plugin 8.9.1, Gradle 8.11.1, Kotlin 2.2.21; compile/target SDK 35, minimum SDK 23.
 
