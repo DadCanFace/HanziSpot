@@ -13,7 +13,7 @@ The project includes the standard Gradle wrapper. From a terminal with JDK 17 or
 
 ## Play
 
-The game draws 10 rounds from 156 playable Traditional and Simplified character pairs.
+Easy, Medium, and Hard draw 10 rounds from 156 playable Traditional and Simplified character pairs. Expert uses a 5×5 grid and shuffles all 156 pairs without repeats.
 
 - Choose a 3×3, 4×4, or 5×5 grid.
 - Tap the single character in the requested script.
@@ -21,7 +21,7 @@ The game draws 10 rounds from 156 playable Traditional and Simplified character 
 - Each different wrong tile costs one of three hearts. Tapping a previously wrong tile cannot cost another heart.
 - After a correct answer, see the Traditional → Simplified pair, pinyin, and English meaning, then continue.
 - Tap **Listen** on the revealed pair and choose Mandarin or Cantonese. Install the corresponding offline voice in Android’s text-to-speech settings if needed. For characters with multiple readings, the voice engine may select a different reading from the one shown.
-- Complete ten rounds or play until the hearts run out. Best scores are saved separately for each difficulty.
+- Complete all rounds or play until the hearts run out. In Expert, every 10 correct answers restores one heart, up to three. Hinted correct answers count toward this milestone. Best scores are saved separately for each difficulty.
 
 There is no timer, account, advertising, network permission, or external runtime service. The game works offline after installation. Current game state survives Activity recreation, including rotation; completed best scores persist between launches.
 
@@ -35,7 +35,7 @@ The vocabulary uses individual character pairs, not a general text conversion en
 
 ## Manual verification
 
-Run all three difficulties; check that each grid contains exactly one different character, the requested script alternates, and the ten-round result appears. Test a hint, three mistakes, replay, leaving via the menu confirmation, rotation before/after answering, and reopening to verify saved high scores. Check portrait and landscape on a small-screen emulator; content scrolls when needed.
+Run all four difficulties; check that each grid contains exactly one different character, the requested script alternates, and the results show the correct round total. In Expert, check the heart reward at 10 correct answers with both missing and full hearts. Test a hint, three mistakes, replay, leaving via the menu confirmation, rotation before/after answering, and reopening to verify saved high scores. Check portrait and landscape on a small-screen emulator; content scrolls when needed.
 
 ## Validation in the creation environment
 

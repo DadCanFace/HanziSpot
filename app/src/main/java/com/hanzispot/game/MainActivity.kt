@@ -162,11 +162,18 @@ class MainActivity : Activity() {
     private val ink = Color.rgb(28, 49, 48)
     private val teal = Color.rgb(22, 125, 115)
     private val paper = Color.rgb(247, 244, 237)
+    private companion object {
+        const val MAX_HEARTS = 3
+        const val STANDARD_ROUNDS = 10
+        const val EXPERT_HEART_INTERVAL = 10
+    }
+
     private var side = 3
+    private var expert = false
     private var order = intArrayOf()
     private var round = 0
     private var score = 0
-    private var lives = 3
+    private var lives = MAX_HEARTS
     private var target = 0
     private var solved = false
     private var hinted = false
@@ -198,8 +205,9 @@ class MainActivity : Activity() {
             }
         }
         savedInstanceState?.let {
+            expert = it.getBoolean("expert")
             side = it.getInt("side", 3); order = it.getIntArray("order") ?: intArrayOf()
-            round = it.getInt("round"); score = it.getInt("score"); lives = it.getInt("lives", 3)
+            round = it.getInt("round"); score = it.getInt("score"); lives = it.getInt("lives", MAX_HEARTS)
             target = it.getInt("target"); solved = it.getBoolean("solved")
             hinted = it.getBoolean("hinted"); playing = it.getBoolean("playing")
             mistakes = (it.getIntArray("mistakes") ?: intArrayOf()).toMutableSet()
@@ -209,6 +217,7 @@ class MainActivity : Activity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putBoolean("expert", expert)
         outState.putInt("side", side); outState.putIntArray("order", order)
         outState.putInt("round", round); outState.putInt("score", score); outState.putInt("lives", lives)
         outState.putInt("target", target); outState.putBoolean("solved", solved)
@@ -234,9 +243,12 @@ class MainActivity : Activity() {
             setOnClickListener { action() }
         }, LinearLayout.LayoutParams(-1, dp(56)).apply { topMargin = dp(12) })
     }
-    private fun start(size: Int) {
-        side = size; order = words.indices.shuffled().take(10).toIntArray()
-        round = 0; score = 0; lives = 3; playing = true
+    private fun start(size: Int, expertMode: Boolean = false) {
+        side = size
+        expert = expertMode
+        val roundCount = if (expert) words.size else STANDARD_ROUNDS
+        order = words.indices.shuffled().take(roundCount).toIntArray()
+        round = 0; score = 0; lives = MAX_HEARTS; playing = true
         newBoard(); render()
     }
     private fun newBoard() {
@@ -267,18 +279,21 @@ class MainActivity : Activity() {
     private fun home() {
         addText("A small difference.\nA whole new character.", 28f)
         addText("Find the one character written in the other Chinese script. Tap it, then learn the pair.")
-        addText("10 rounds · 3 hearts · no time limit", 14f, teal)
+        addText("3 hearts · no time limit", 14f, teal)
         button("Easy  ·  3 × 3") { start(3) }
         button("Medium  ·  4 × 4") { start(4) }
         button("Hard  ·  5 × 5") { start(5) }
+        button("Expert  ·  All ${words.size} pairs") { start(5, expertMode = true) }
+        addText("Expert restores one heart every 10 correct answers, up to 3.", 14f)
         addText("Best scores", 18f)
         addText((3..5).joinToString("    ") { "${it}×$it: ${prefs.getInt("best$it", 0)}" }, 14f)
+        addText("Expert: ${prefs.getInt("bestExpert", 0)}", 14f)
         addText("Traditional 繁體 · Simplified 简体\nBoth are valid writing systems. This game practices visual recognition of individual characters.", 13f)
     }
     private fun board() {
         val word = words[order[round]]
         val findTraditional = round % 2 == 0
-        addText("ROUND ${round + 1} / 10     •     $score PTS     •     ${"♥".repeat(lives)}", 13f, teal)
+        addText("ROUND ${round + 1} / ${order.size}     •     $score PTS     •     ${"♥".repeat(lives)}", 13f, teal)
         addText(if (findTraditional) "Find the Traditional one" else "Find the Simplified one", 25f)
         addText(if (findTraditional) "找出繁體字 · Tap the different character" else "找出简体字 · Tap the different character", 14f)
         val grid = GridLayout(this).apply { columnCount = side; rowCount = side }
@@ -303,7 +318,11 @@ class MainActivity : Activity() {
                 isEnabled = !solved && i !in mistakes
                 setOnClickListener {
                     if (special) {
-                        solved = true; score += if (hinted) 5 else 10
+                        solved = true
+                        score += if (hinted) 5 else 10
+                        if (isExpertHeartRound()) {
+                            lives = (lives + 1).coerceAtMost(MAX_HEARTS)
+                        }
                     } else { mistakes.add(i); lives-- }
                     render()
                 }
@@ -317,7 +336,10 @@ class MainActivity : Activity() {
             addText("You found it!  +${if (hinted) 5 else 10}", 20f, teal)
             pronunciationButton(word)
             addText("Traditional  →  Simplified\n${word.pinyin} · ${word.meaning}")
-            button(if (round == 9) "See results" else "Next character  →") { round++; newBoard(); render() }
+            if (isExpertHeartRound()) {
+                addText("${round + 1} correct · $lives / $MAX_HEARTS hearts", 14f, teal)
+            }
+            button(if (round == order.lastIndex) "See results" else "Next character  →") { round++; newBoard(); render() }
         } else {
             addText(if (mistakes.isEmpty()) "Look closely at the strokes." else "That is the majority script. Try another tile.", 14f)
             if (!hinted) button("Hint  ·  earn 5 instead of 10 points") { hinted = true; render() }
@@ -405,20 +427,23 @@ class MainActivity : Activity() {
         super.onDestroy()
     }
 
+    private fun isExpertHeartRound() = expert && (round + 1) % EXPERT_HEART_INTERVAL == 0
+
     private fun results() {
-        val best = maxOf(score, prefs.getInt("best$side", 0))
-        prefs.edit().putInt("best$side", best).apply()
+        val recordKey = if (expert) "bestExpert" else "best$side"
+        val best = maxOf(score, prefs.getInt(recordKey, 0))
+        prefs.edit().putInt(recordKey, best).apply()
         addText(if (lives > 0) "Beautifully spotted." else "Keep your eyes curious.", 28f)
         addText("$score", 64f, teal)
-        addText("POINTS · ${side} × $side", 14f)
-        addText("${round + if (solved && round < 10) 1 else 0} / 10 pairs found\nBest at this difficulty: $best")
+        addText(if (expert) "POINTS · Expert" else "POINTS · ${side} × $side", 14f)
+        addText("${round + if (solved && round < order.size) 1 else 0} / ${order.size} pairs found\nBest at this difficulty: $best")
         if (lives <= 0 && round < order.size) {
             val word = words[order[round]]
             addText("The last pair was")
             pronunciationButton(word)
             addText("${word.pinyin} · ${word.meaning}")
         }
-        button("Play again") { start(side) }
+        button("Play again") { start(side, expertMode = expert) }
         button("Choose difficulty") { playing = false; render() }
     }
 }
